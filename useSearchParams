@@ -1,140 +1,182 @@
-import React from "react";
-import { useSearchParams } from "react-router-dom";
-import "./UseSearchParams.css";
+.search-params-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f4f6f8;
+  box-sizing: border-box;
+}
 
-const users = [
-    {id: 1, name: "Arun Kumar", email: "arun@example.com", city: "Chennai", role: "Developer",},
-    {id: 2, name: "Priya Sharma", email: "priya@example.com", city: "Coimbatore", role: "Designer",},
-    {id: 3, name: "Rahul Raj", email: "rahul@example.com", city: "Bangalore", role: "Tester",},
-    {id: 4, name: "Divya Singh", email: "divya@example.com", city: "Mumbai", role: "Manager",},
-    {id: 5, name: "Karthik S", email: "karthik@example.com", city: "Madurai", role: "Developer",},
-    {id: 6, name: "Anjali Devi", email: "anjali@example.com", city: "Salem", role: "Designer",},
-    {id: 7, name: "Vijay Kumar", email: "vijay@example.com", city: "Trichy", role: "Admin",},
-    {id: 8, name: "Sneha R", email: "sneha@example.com", city: "Erode", role: "Developer",},
-    {id: 9, name: "Ajay Kumar", email: "ajay@example.com", city: "Hyderabad", role: "Tester",},
-    {id: 10, name: "Meena Raj", email: "meena@example.com", city: "Kochi", role: "Manager",},
-    {id: 11, name: "Suresh Babu", email: "suresh@example.com", city: "Chennai", role: "Developer",},
-    {id: 12, name: "Nisha Patel", email: "nisha@example.com", city: "Pune", role: "Designer",},
-    {id: 13, name: "Ravi Shankar", email: "ravi@example.com", city: "Bangalore", role: "Admin",},
-    {id: 14, name: "Keerthi M", email: "keerthi@example.com", city: "Coimbatore", role: "Tester",},
-    {id: 15, name: "Manoj Kumar", email: "manoj@example.com", city: "Madurai", role: "Developer",},
-    {id: 16, name: "Lakshmi P", email: "lakshmi@example.com", city: "Salem", role: "Manager",},
-    {id: 17, name: "Gokul R", email: "gokul@example.com", city: "Erode", role: "Developer",},
-    {id: 18, name: "Pooja N", email: "pooja@example.com", city: "Mumbai", role: "Designer",},
-    {id: 19, name: "Dinesh Kumar", email: "dinesh@example.com", city: "Hyderabad", role: "Tester",},
-    {id: 20, name: "Harini S", email: "harini@example.com", city: "Kochi", role: "Admin",},
+.search-params-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
 
-];
+.search-params-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-export default function UseSearchParams() {
-  const [searchParams, setSearchParams] = useSearchParams();
+.search-params-header h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  color: #1f2937;
+}
 
-  const pageFromURL = Number(searchParams.get("page")) || 1;
+.search-params-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+}
 
-  const recordsPerPage = 5;
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
 
-  const totalPages = Math.ceil(users.length / recordsPerPage);
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
 
-  const currentPage = Math.min(
-    Math.max(pageFromURL, 1),
-    totalPages
-  );
+.users-table thead {
+  background: #1f2937;
+}
 
-  const startIndex = (currentPage - 1) * recordsPerPage;
+.users-table th {
+  padding: 15px 18px;
+  text-align: left;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+}
 
-  const endIndex = startIndex + recordsPerPage;
+.users-table td {
+  padding: 15px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 14px;
+}
 
-  const currentUsers = users.slice(startIndex, endIndex);
+.users-table tbody tr {
+  transition: background-color 0.2s ease;
+}
 
-  const goToPage = (pageNumber) => {
-    setSearchParams({
-      page: String(pageNumber),
-    });
-  };
+.users-table tbody tr:hover {
+  background: #f8fafc;
+}
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      goToPage(currentPage - 1);
-    }
-  };
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
 
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      goToPage(currentPage + 1);
-    }
-  };
+.role-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 12px;
+  font-weight: 600;
+}
 
-  return (
-    <div className="search-params-page">
-      <div className="search-params-container">
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 30px;
+}
 
-        <div className="search-params-header">
-          <h1>User Pagination</h1>
-          <p>
-            Pagination using React Router useSearchParams
-          </p>
-        </div>
+.pagination-button {
+  min-width: 130px;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #1f2937;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
 
-        <div className="table-wrapper">
-          <table className="users-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>City</th>
-                <th>Role</th>
-              </tr>
-            </thead>
+.pagination-button:hover:not(:disabled) {
+  background: #111827;
+  transform: translateY(-1px);
+}
 
-            <tbody>
-              {currentUsers.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.city}</td>
-                  <td>
-                    <span className="role-badge">
-                      {user.role}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+.pagination-button:active:not(:disabled) {
+  transform: translateY(0);
+}
 
-        <div className="pagination">
+.pagination-button:disabled {
+  background: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
 
-          <button
-            type="button"
-            onClick={handlePrevious}
-            disabled={currentPage === 1}
-            className="pagination-button"
-          >
-            ← Previous
-          </button>
+.page-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 15px;
+}
 
-          <div className="page-info">
-            <span>Page</span>
-            <strong>{currentPage}</strong>
-            <span>of</span>
-            <strong>{totalPages}</strong>
-          </div>
+.page-info strong {
+  min-width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #4338ca;
+}
 
-          <button
-            type="button"
-            onClick={handleNext}
-            disabled={currentPage === totalPages}
-            className="pagination-button"
-          >
-            Next →
-          </button>
+@media (max-width: 700px) {
+  .search-params-page {
+    padding: 20px 12px;
+  }
 
-        </div>
+  .search-params-container {
+    padding: 20px 15px;
+    border-radius: 12px;
+  }
 
-      </div>
-    </div>
-  );
+  .search-params-header h1 {
+    font-size: 24px;
+  }
+
+  .pagination {
+    gap: 12px;
+  }
+
+  .pagination-button {
+    min-width: 110px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .pagination {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .pagination-button {
+    width: 100%;
+  }
+
+  .page-info {
+    order: -1;
+  }
 }
