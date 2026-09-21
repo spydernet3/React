@@ -1,6 +1,5 @@
 import React from 'react';
 import useAPI from '../Componants/useAPI'; 
-import './UserCard.css';
 
 export default function UserCard() {
 
