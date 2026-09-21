@@ -1,0 +1,131 @@
+import React from 'react';
+import useAPI from '../Componants/useAPI'; 
+import './UserCard.css';
+
+export default function UserCard() {
+
+  const { data: users, loading, error } = useAPI("https://jsonplaceholder.typicode.com/users");
+
+  if (loading) {
+    return (
+      <div className="user-card" 
+      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '250px', backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid #e5e7eb', margin: '40px auto' }}>
+        <h3 style={{ color: '#6b7280', fontFamily: 'sans-serif' }}>loading card...</h3>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="user-card" 
+      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '250px', backgroundColor: '#ffffff', borderRadius: '16px', border: '1px solid #ef4444', color: '#ef4444', margin: '40px auto' }}>
+        <h3 style={{ fontFamily: 'sans-serif' }}>{error}</h3>
+      </div>
+    );
+  }
+
+  const containerStyle = {
+    fontFamily: 'sans-serif',
+    maxWidth: '1800px',
+    margin: '0 auto',
+    padding: '40px 20px',
+    textAlign: 'center',
+    backgroundColor: '#fff'
+  };
+
+  const headerStyle = {
+    color: '#1a253c',
+    fontSize: '2.5rem',
+    marginBottom: '10px'
+  };
+
+  const subheaderStyle = {
+    color: '#6b7280',
+    fontSize: '1.1rem',
+    marginBottom: '40px'
+  };
+
+  const gridStyle = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '30px',
+    justifyContent: 'center'
+  };
+
+  const cardStyle = {
+    backgroundColor: '#ffffff',
+    border: '1px solid #e5e7eb',
+    borderRadius: '16px',
+    padding: '30px 20px',
+    textAlign: 'center',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+  };
+
+  const idStyle = {
+    color: '#9ca3af',
+    fontSize: '0.85rem',
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+    marginBottom: '5px'
+  };
+
+  const nameStyle = {
+    color: '#1e3a8a',
+    fontSize: '1.4rem',
+    fontWeight: '700',
+    marginBottom: '20px',
+    marginTop: '0'
+  };
+
+  const infoTextStyle = {
+    color: '#6b7280',
+    fontSize: '0.95rem',
+    margin: '10px 0',
+    lineHeight: '1.5'
+  };
+
+  const labelStyle = {
+    color: '#9ca3af',
+    fontWeight: 'normal',
+    marginRight: '4px'
+  };
+
+  return (
+    <div style={containerStyle}>
+      <h1 style={headerStyle}>User List</h1>
+      <p style={subheaderStyle}>
+        Welcome to the User List page. <pre></pre>
+        Here you can view the list of registered users.
+      </p>
+
+      <div style={gridStyle}>
+
+        {users && users.map((person) => (
+
+          <div key={person.id} style={cardStyle} className="user-card">
+            <div style={idStyle}>ID: {person.id}</div>
+            <h2 style={nameStyle}>{person.name}</h2>
+            
+            <p style={infoTextStyle}>
+              <span style={labelStyle}>Email:</span> {person.email}
+            </p>
+
+            <p style={infoTextStyle}>
+              <span style={labelStyle}>Phone:</span> {person.phone}
+            </p>
+
+            <p style={infoTextStyle}>
+              <span style={labelStyle}>City:</span> {person.address?.city}
+            </p>
+
+            <p style={infoTextStyle}>
+              <span style={labelStyle}>Website:</span> {person.website}
+            </p>
+            
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
